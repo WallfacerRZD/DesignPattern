@@ -7,6 +7,7 @@ package command;
  */
 public interface Command {
     void execute();
+    void undo();
 }
 
 /**
@@ -24,5 +25,41 @@ class LightOnCommand implements Command {
     @Override
     public void execute() {
         light.on();
+    }
+
+    @Override
+    public void undo() {
+        light.off();
+    }
+}
+
+class LightOffCommand implements Command {
+
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+    @Override
+    public void execute() {
+        light.off();
+    }
+
+    @Override
+    public void undo() {
+        light.on();
+    }
+}
+
+class NoCommand implements Command {
+
+    @Override
+    public void execute() {
+        System.out.println("no command");
+    }
+
+    @Override
+    public void undo() {
+        System.out.println("no command");
     }
 }
